@@ -49,7 +49,8 @@ const buyPlayer = async (req, res)=>{
                                     if(!updatedExTeam) return res.status(http.StatusCodes.BAD_REQUEST).send(error.message)
                                 }
                                 try {
-                                    let updatedPlayerValue = (player.playerValue) * Math.random() * (1 - 0.10) + 0.10
+                                    let x = Math.random() * (1 - 0.10) + 0.10
+                                    let updatedPlayerValue = (player.playerValue) * x.toFixed(2)
                                     const updatedPlayer = await player.updateOne({value}, {$set: {team: req.team, playerValue:(player.playerValue) + updatedPlayerValue}})
                                 } catch (error) {
                                     console.log(error)

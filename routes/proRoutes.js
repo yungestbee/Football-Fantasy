@@ -11,6 +11,8 @@ const getAllPlayers = require('../controllers/getAllPlayer')
 const teamInfo = require('../controllers/teamInfo')
 const buyPlayer = require('../controllers/buyPlayer')
 const postPlayer = require('../controllers/transfer')
+const updateTeam = require('../controllers/updateTeam')
+const updatePlayer = require('../controllers/updatePlayer')
 
 const route = express.Router()
 
@@ -27,5 +29,10 @@ route.get("/transfer", verifyToken, transferList)
 route.post("/transfer", verifyToken, postPlayer)
 
 route.put("/signPlayer", verifyToken, buyPlayer)
+
+route.put("/updateTeam:id", verifyToken, updateTeam)
+
+route.put("/updatePlayer:id", verifyToken, updatePlayer)
+
 
 module.exports = route

@@ -1,10 +1,22 @@
 const mongoose = require('mongoose')
 
 const teamSchema = mongoose.Schema({
-    teamName: String,
-    teamValue: Number,
-    additionalValue: Number,
-    TotalValue: Number
+    teamName: {
+        type: String,
+        unique: true,
+    },
+    country: {
+        type: String
+    },
+    teamValue: {
+        type: Number
+    },
+    additionalValue: {
+        type: Number
+    },
+    TotalValue: {
+        type: Number
+    },
 })
 
 
