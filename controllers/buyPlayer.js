@@ -32,9 +32,10 @@ const buyPlayer = async (req, res)=>{
                         return res.status(http.StatusCodes.BAD_REQUEST).send(error.message)
                     } else {
                         teamAdditionalValue = myTeam.additionalValue
+                       let teamTotalValue = myTeam.TotalValue
                         if(playerMarketValue <= teamAdditionalValue){
                                 try {
-                                    const updated = await team.updateOne({teamName:req.team}, {$set: {additionalValue: (teamAdditionalValue - playerMarketValue)}})
+                                    const updated = await team.updateOne({teamName:req.team}, {$set: {additionalValue: (teamAdditionalValue - playerMarketValue),TotalValue: (teamTotalValue - playerMarketValue) }})
                                 } catch (error) {
                                     console.log(error)
                                     return res.status(http.StatusCodes.BAD_REQUEST).send(error.message)
@@ -46,8 +47,9 @@ const buyPlayer = async (req, res)=>{
                                          return res.status(http.StatusCodes.BAD_REQUEST).send(error.message)
                                     } else{
                                         var exTeamAdditionalValue = ExTeam.additionalValue
+                                        var exTotalValue = ExTeam.TotalValue
                                     }
-                                    const updateExTeam = await team.updateOne({teamName:player.team}, {$set: {additionalValue: (exTeamAdditionalValue + playerMarketValue)}})
+                                    const updateExTeam = await team.updateOne({teamName:player.team}, {$set: {additionalValue: (exTeamAdditionalValue + playerMarketValue), TotalValue:(exTotalValue - playerMarketValue)}})
                                 } catch(error){
                                     console.log(error)
                                     if(!updatedExTeam) return res.status(http.StatusCodes.BAD_REQUEST).send(error.message)

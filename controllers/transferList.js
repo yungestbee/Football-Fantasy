@@ -1,14 +1,15 @@
 const http = require("http-status-codes")
 const transfer = require('../models/transferSchema')
 
-const transferList = (req, res, next)=>{
+const transferList = async (req, res, next)=>{
     try {
-        const getList = transfer.find({})
+        const getList = await transfer.find({})
          if (!getList) return res.status(http.StatusCodes.BAD_REQUEST).send("couldn't get transfer list")
-        res.status(http.StatusCodes.OK).send(getList)
+         console.log(getList)
+        res.status(http.StatusCodes.OK).json(getList)
     } catch (error) {
         console.log(error)
-        return res.status(http.StatusCodes.BAD_REQUEST).send("couldn't get transfer list")
+        return res.status(http.StatusCodes.BAD_REQUEST).send(error.message)
     }
     
 }

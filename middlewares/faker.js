@@ -69,7 +69,8 @@ const createRandomMidfielders =()=>{
     req.randomPlayers.push(createRandomKeepers());
   }
   try {
-    const check = await new player.insertMany(req.randomPlayers)
+    console.log(req.randomPlayers)
+    const check = await player.insertMany(req.randomPlayers)
     console.log(check)
   } catch (error) {
     console.log(error)

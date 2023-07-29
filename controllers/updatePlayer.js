@@ -12,7 +12,7 @@ const updatePlayer = async (req, res, next) =>{
         if(!check) {
             res.status(http.StatusCodes.BAD_REQUEST).send(error.message)
         } else {
-            const input = await player.updateById(check._id, {set:{value}})
+            const input = await player.updateById(check._id, {$set:{value}})
             res.status(http.StatusCodes.OK).send(input)
         }
     }

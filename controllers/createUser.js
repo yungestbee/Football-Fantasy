@@ -26,7 +26,7 @@ const createUser = async (req, res, next) => {
       });
     } catch (error) {
       console.log(error);
-      return res.status(http.StatusCodes.BAD_REQUEST).send("Failed to create user");
+      return res.status(http.StatusCodes.BAD_REQUEST).send("User already exists");
     }
     req.email = value.email;
 
