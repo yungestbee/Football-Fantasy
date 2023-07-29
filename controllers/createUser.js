@@ -3,12 +3,13 @@ const bcrypt = require('bcrypt');
 const http = require("http-status-codes");
 const userJoi = require("../validators/userJoi");
 
+//create a new user 
 const createUser = async (req, res, next) => {
   const { error, value } = userJoi.validate(req.body);
   if (error) {
     return res.status(http.StatusCodes.BAD_REQUEST).send("Invalid details");
   }
-
+//generate a salt and also hash the password recieved from the req.body
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(value.password, salt);
@@ -16,6 +17,7 @@ const createUser = async (req, res, next) => {
       return res.status(http.StatusCodes.BAD_REQUEST).send("Invalid details");
     }
 
+  //create and save data into the database
     try {
       const userCreate = await user.create({
         email: value.email,
@@ -26,9 +28,9 @@ const createUser = async (req, res, next) => {
       console.log(error);
       return res.status(http.StatusCodes.BAD_REQUEST).send("Failed to create user");
     }
-
-    // Do not send response here if you are calling next()
     req.email = value.email;
+
+    //move the operation to the next middleware/controller using next()
     next();
   } catch (error) {
     console.log(error);
